@@ -1,18 +1,19 @@
 const User = require("../models/user/user");
+const Api = require("../utils/Api");
 
 const get = (req, res) => {
     if (req.user) {
         User.findById(req.user.id, function (error, user) {
             if (error) {
-                res.status(500).send({success: false, msg: error})
+                Api.error(res, error, 500)
             } else if (!user) {
-                res.status(401).send({success: false, msg: 'User not found.'});
+                Api.error(res, 'User not found.', 401)
             } else {
-                res.json({success: true, user: user});
+                Api.success(res, {id: user._id, username: user.username})
             }
         })
     } else {
-        res.status(403).json({success: false, msg: 'Missing user ID from Authentication.'})
+        Api.error(res, 'Missing user ID from Authentication.', 403)
     }
 }
 
