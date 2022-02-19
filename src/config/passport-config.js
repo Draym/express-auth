@@ -14,7 +14,7 @@ module.exports = passport => {
             User.findById(payload.id)
                 .then(user => {
                     if (user) {
-                        return done(null, {id: user._id, username: user.username});
+                        return done(null, {id: user._id, email: user.email});
                     }
                     return done(null, false);
                 }).catch(err => console.error(err));

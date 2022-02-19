@@ -8,7 +8,7 @@ const get = (req, res, next) => {
         } else if (!user) {
             Api.error(res, 'User not found.', 403)
         } else {
-            Api.success(res, {id: user._id, username: user.username})
+            Api.success(res, {id: user._id, email: user.email, username: user.username})
         }
     })
 }

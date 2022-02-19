@@ -5,25 +5,26 @@ const Api = require("../utils/Api");
 const secret = process.env.JWT_SECRET
 
 const signup = (req, res) => {
-    if (!req.body.username || !req.body.password) {
-        Api.error(res, 'Please provide username and password.', 400)
+    if (!req.body.email || !req.body.password) {
+        Api.error(res, 'Please provide email and password.', 400)
     } else {
         const newUser = new User({
+            email: req.body.email,
             username: req.body.username,
             password: req.body.password
         });
         newUser.save(function (err, user) {
             if (err) {
-                Api.error(res, 'Username already exists.', 400)
+                Api.error(res, 'Email already exists.', 400)
             } else {
-                Api.success(res, {id: user.id, username: user.username})
+                Api.success(res, {id: user.id, email: user.email, username: user.username})
             }
         });
     }
 }
 
 const login = (req, res) => {
-    User.findOne({username: req.body.username}, function (error, user) {
+    User.findOne({email: req.body.email}, function (error, user) {
         if (error) {
             Api.error(res, error, res)
         } else if (!user) {
@@ -31,7 +32,7 @@ const login = (req, res) => {
         } else {
             user.comparePassword(req.body.password, function (error, isMatch) {
                 if (isMatch && !error) {
-                    const payload = {id: user._id, username: user.username};
+                    const payload = {id: user._id, email: user.email};
                     jwt.sign(payload, secret, {expiresIn: 360000},
                         (error, token) => {
                             if (error) {
