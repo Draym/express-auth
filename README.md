@@ -1,1 +1,1 @@
-# express-auth
+# expressjs-auth
