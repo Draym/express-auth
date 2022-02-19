@@ -1,7 +1,7 @@
 const User = require("../models/user/user");
 
 const get = (req, res, next) => {
-    User.findById(req.params.id, function (error, user) {
+    User.findById(req.query.id, function (error, user) {
         if (error) {
             res.status(500).send({success: false, msg: error})
         } else if (!user) {
