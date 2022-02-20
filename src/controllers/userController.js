@@ -1,5 +1,5 @@
 const User = require("../models/user/user");
-const Api = require("../utils/Api");
+const Api = require("../utils/api");
 
 const get = (req, res) => {
     if (req.user) {

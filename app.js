@@ -9,8 +9,8 @@ if (process.env.NODE_ENV !== "production") {
   // Load environment variables from .env file in non prod environments
   require("dotenv").config()
 }
-require('./src/utils/connectdb')
-require('./src/config/passport-config')(passport);
+require('./src/utils/connectDb')
+require('./src/config/passportConfig')(passport);
 
 const indexRouter = require('./src/routes');
 const userRouter = require('./src/routes/user');
