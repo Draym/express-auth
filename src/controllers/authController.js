@@ -109,7 +109,7 @@ const ethLogin = (req, res) => {
             });
 
             if (resultAddress.toLowerCase() === userEth.publicAddress.toLowerCase()) {
-                User.findOne({email: userEth.email}, function (error, user) {
+                User.findById(userEth.userId, function (error, user) {
                     if (error) {
                         Api.error(res, error, res)
                     } else if (!user) {
