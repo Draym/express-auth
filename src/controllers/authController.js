@@ -128,7 +128,7 @@ const ethLogin = (req, res) => {
 }
 
 const ethGetNonce = (req, res) => {
-    UserEth.findOne({publicAddress: req.body.publicAddress}, function (error, userEth) {
+    UserEth.findOne({publicAddress: req.query.publicAddress}, function (error, userEth) {
         if (error) {
             Api.error(res, error, res)
         } else if (!userEth) {
