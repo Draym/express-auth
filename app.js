@@ -16,6 +16,7 @@ const indexRouter = require('./src/routes');
 const userRouter = require('./src/routes/user');
 const usersAdminRouter = require('./src/routes/users.admin');
 const authRouter = require('./src/routes/auth');
+const apiDocsRouter = require('./src/routes/apidocs');
 
 const app = express();
 // view engine setup
@@ -35,5 +36,6 @@ app.use('/', indexRouter);
 app.use('/api/user', userRouter);
 app.use('/api/users', usersAdminRouter);
 app.use('/api/auth', authRouter);
+app.use('/api-docs', apiDocsRouter);
 
 module.exports = app;
