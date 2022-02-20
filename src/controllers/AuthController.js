@@ -28,7 +28,7 @@ const login = (req, res) => {
         if (error) {
             Api.error(res, error, res)
         } else if (!user) {
-            Api.error(res, 'Authentication failed. User not found.', 401)
+            Api.error(res, 'Authentication failed. User not found.', 403)
         } else {
             user.comparePassword(req.body.password, function (error, isMatch) {
                 if (isMatch && !error) {
