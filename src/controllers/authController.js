@@ -109,17 +109,25 @@ const ethLogin = (req, res) => {
             });
 
             if (resultAddress.toLowerCase() === userEth.publicAddress.toLowerCase()) {
-                const payload = {id: userEth._id, email: userEth.email};
-                jwt.sign(payload, secret, {expiresIn: 360000},
-                    (error, token) => {
-                        if (error) {
-                            Api.error(res, 'Error signing token.', 500)
-                        } else {
-                            userEth.nonce = Math.floor(Math.random() * 1000000);
-                            userEth.save();
-                            Api.success(res, {token: `JWT ${token}`})
-                        }
-                    });
+                User.findOne({email: req.body.email}, function (error, user) {
+                    if (error) {
+                        Api.error(res, error, res)
+                    } else if (!user) {
+                        Api.error(res, 'Authentication failed: User not found.', 403)
+                    } else {
+                        const payload = {id: user._id, email: user.email};
+                        jwt.sign(payload, secret, {expiresIn: 360000},
+                            (error, token) => {
+                                if (error) {
+                                    Api.error(res, 'Error signing token.', 500)
+                                } else {
+                                    userEth.nonce = Math.floor(Math.random() * 1000000);
+                                    userEth.save();
+                                    Api.success(res, {token: `JWT ${token}`})
+                                }
+                            });
+                    }
+                })
             } else {
                 Api.error(res, 'Authentication failed: Wrong signature verification.', 403)
             }
