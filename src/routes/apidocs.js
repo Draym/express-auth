@@ -5,7 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 
 const swaggerDefinition = {
-    openapi: '3.0.0',
+    swagger: '2.0',
     info: {
         title: 'ExpressJs-Auth',
         version: '1.0.0',
