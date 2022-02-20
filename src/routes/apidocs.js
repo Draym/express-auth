@@ -17,11 +17,11 @@ const swaggerDefinition = {
     },
     servers: [
         {
-            url: 'http://localhost:3000',
+            url: 'http://localhost:3000/api',
             description: 'Development server',
         },
         {
-            url: 'https://expressjs-auth-backend.herokuapp.com',
+            url: 'https://expressjs-auth-backend.herokuapp.com/api',
             description: 'Production server',
         },
     ],
